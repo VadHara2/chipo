@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.chirp.kotlin.common)
+    alias(libs.plugins.chirp.spring.boot.service)
 }
 
 dependencies {
@@ -9,5 +9,16 @@ dependencies {
     implementation(libs.firebase.admin.sdk)
     implementation(libs.okhttp.asProvider())
     implementation(libs.okhttp.logging)
-    implementation(libs.kotlin.reflect)
+}
+
+tasks.bootJar {
+    enabled = false
+}
+
+tasks.bootRun {
+    enabled = false
+}
+
+tasks.jar {
+    archiveClassifier = ""
 }

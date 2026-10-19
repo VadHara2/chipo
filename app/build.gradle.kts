@@ -1,6 +1,5 @@
 plugins {
-    alias(libs.plugins.chirp.kotlin.common)
-    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.chirp.spring.boot.service)
 }
 
 dependencies {
@@ -8,13 +7,11 @@ dependencies {
     implementation(project(":user"))
     implementation(project(":chat"))
     implementation(project(":notification"))
-    implementation(libs.spring.boot.starter.asProvider())
     implementation(libs.spring.boot.autoconfigure)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.thymeleaf)
     implementation(libs.thymeleaf.extras.springsecurity6)
     implementation(libs.jackson3.module.kotlin)
-    implementation(libs.kotlin.reflect)
 
     annotationProcessor(libs.spring.boot.processor)
 
@@ -22,7 +19,6 @@ dependencies {
 
     runtimeOnly(libs.postgresql)
 
-    testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.rabbit.test)
     testImplementation(libs.spring.restdocs.mockmvc)
     testImplementation(libs.spring.security.test)

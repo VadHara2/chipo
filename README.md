@@ -18,7 +18,7 @@ app ──────────┬── user ─────────┐
 - `chat` — reserved for chat functionality and WebSocket communication.
 - `notification` — reserved for notifications and integrations with AMQP, email, and Firebase.
 - `common` — shared Kotlin types and utilities, with no dependencies on Spring or other modules.
-- `build-logic` — an included Gradle build containing the `chirp.kotlin-common` convention plugin and sharing the root version catalog.
+- `build-logic` — an included Gradle build containing the `chirp.kotlin-common` and `chirp.spring-boot-service` convention plugins and sharing the root version catalog.
 
 `app` depends on all other modules. `user`, `chat`, and `notification` depend only on `common` and their external libraries. Feature modules do not depend directly on one another.
 
@@ -48,7 +48,9 @@ JDK 21 is required. The Gradle Wrapper is included in the repository.
 
 Library versions are defined in `gradle/libs.versions.toml`. The root build aligns Kotlin, Coroutines, and Jackson versions through the Spring Boot BOM across all modules. Jackson 2 is used for JJWT, while Jackson 3 handles HTTP JSON in Spring Boot.
 
-All application and library modules apply `chirp.kotlin-common` using `alias(libs.plugins.chirp.kotlin.common)`. Its alias is declared without a version in `gradle/libs.versions.toml` because the plugin is supplied by the included `build-logic` build. It configures Kotlin/JVM, the Kotlin Spring compiler plugin, Spring dependency management, the JDK 21 toolchain, Maven Central, strict JSR-305 nullability checks, and Kotlin tests on JUnit Platform. It adds no Spring runtime dependencies. JPA compiler plugins remain in `user` and `chat`, and the executable Spring Boot plugin remains in `app`.
+`common` applies `chirp.kotlin-common` using `alias(libs.plugins.chirp.kotlin.common)`. It configures Kotlin/JVM, the Kotlin Spring compiler plugin, Spring dependency management, the JDK 21 toolchain, Maven Central, strict JSR-305 nullability checks, and Kotlin tests on JUnit Platform. It adds no Spring runtime dependencies. JPA compiler plugins remain in `user` and `chat`.
+
+`app`, `user`, `chat`, and `notification` apply `chirp.spring-boot-service` using `alias(libs.plugins.chirp.spring.boot.service)`. This plugin applies `chirp.kotlin-common` and the Spring Boot plugin, and adds Kotlin reflection, the Kotlin standard library, the Spring Web MVC starter, and the Spring Boot test starter. Spring dependency management, Kotlin test dependencies, and JUnit Platform settings are inherited from `chirp.kotlin-common`. The feature modules disable `bootJar` and `bootRun` and keep their regular JARs without a classifier; `app` remains the only executable module. Both convention plugin aliases are declared without versions in `gradle/libs.versions.toml` because they are supplied by the included `build-logic` build.
 
 ## Run
 
