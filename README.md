@@ -18,6 +18,7 @@ app ──────────┬── user ─────────┐
 - `chat` — reserved for chat functionality and WebSocket communication.
 - `notification` — reserved for notifications and integrations with AMQP, email, and Firebase.
 - `common` — shared Kotlin types and utilities, with no dependencies on Spring or other modules.
+- `build-logic` — an included Gradle build reserved for convention plugins. It currently contains no plugins and shares the root version catalog.
 
 `app` depends on all other modules. `user`, `chat`, and `notification` depend only on `common` and their external libraries. Feature modules do not depend directly on one another.
 
