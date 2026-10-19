@@ -1,6 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.chirp.kotlin.common)
     alias(libs.plugins.spring.boot)
 }
 
